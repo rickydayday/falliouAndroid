@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailor App</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<script src="https://unpkg.com/write-excel-file@1.x/bundle/write-excel-file.min.js"></script>
+   <style>
+  
+      ion-content{
+        font-family: 'Poppins' !important;
+        font-size: 12px !important;
+      }
+      ion-label{
+        font-size: 12px !important;
+        font-family: 'Poppins' !important;
+      }
+      iconify-icon{
+        font-size: 60px;
+        color: #3880ff;
+        margin-top: 2rem !important;
+      }
+      ion-button{
+        text-transform: lowercase !important;
+      }
+      p{
+        font-size: 12px;
+      }
+      .note{
+        font-size: 8px;
+      }
+      .user{
+        color:#3880ff;
+      }
+      ion-icon{
+        color: #3880ff !important;
+      }
+      #handlerResult{
+        color:darkgreen;
+
+      }
+
+      #roleResult{
+        
+        color: darkred;
+      }
+
+     
+    </style>
+  </head>
+  <body>
+    <ion-app>
+        <ion-menu content-id="main-content">
+            <ion-header>
+              <ion-toolbar color="primary">
+                <ion-title>Mon Menu</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <ion-list>
+                    <ion-item>
+                      <ion-icon name="home" slot="start"></ion-icon>
+                      <a href="./home.html"><ion-label>Accueil</ion-label></a>
+                    </ion-item>
+                    <ion-item>
+                      <ion-icon name="person" slot="start"></ion-icon>
+                      <ion-label>Profile</ion-label>
+                    </ion-item>
+                    <ion-item>
+                      <ion-icon name="chatbubbles" slot="start"></ion-icon>
+                      <a href="./myclients.html" ><ion-label>List des clients</ion-label></a>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-icon name="add" slot="start"></ion-icon>
+                     <a href="./addClient.html" ><ion-label>Ajouter un client</ion-label></a>
+                      </ion-item>
+                    <!-- <ion-item>
+                      <ion-icon name="settings" slot="start"></ion-icon>
+                      <ion-label>Settings</ion-label>
+                    </ion-item> -->
+
+                    <ion-item id="logout">
+                          <ion-icon name="log-out-outline" slot="start"></ion-icon>           
+                                 <ion-label>Deconnecter</ion-label>
+                    </ion-item>
+                  </ion-list>
+            </ion-content>
+          </ion-menu>
+          <div class="ion-page" id="main-content">
+            <ion-header>
+              <ion-toolbar color="primary">
+                <ion-buttons slot="start">
+                  <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+                <ion-title>Bienvenue</ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+              <ion-modal>
+                <ion-datetime id="datetime"></ion-datetime>
+              </ion-modal>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-card id="my_clients">
+                      <ion-card-body>
+                        <div align="center">
+                          <iconify-icon class="user" icon="fa:users"></iconify-icon>
+                          <p class="title">Mes Clients</p>
+                          <p class="note">Affichier tous mes clients</p>
+                        </div>
+                       
+                       
+                      </ion-card-body>
+                    </ion-card>
+                    
+                    </ion-col>
+               
+                  <ion-col>
+                    <ion-card id="add">
+                      <ion-card-body>
+                        <div align="center">
+                          <iconify-icon class="user" icon="wpf:add-user"></iconify-icon>
+                          <p class="title">Ajouter Client</p>
+                          <p class="note">Enregister une nouveau client</p>
+                        </div>
+                      
+                      </ion-card-body>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+               </ion-grid>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-card>
+
+                      <ion-grid>
+                               <ion-row>
+                                  <ion-col>
+                            <iconify-icon icon="material-symbols:cloud-sync"></iconify-icon>
+                                  </ion-col>
+
+
+                          <ion-col>
+                             <div align="center">
+                              <p>Synchroniser manullement donnes</p>
+                              </div>
+                          
+
+                     
+                      
+                              <ion-button onclick="presentAlert()">Synchroniser Donnees</ion-button>
+                              <p id="handlerResult"></p>
+                              <p id="roleResult"></p>
+                            </ion-col>
+                        </ion-row>
+                        </ion-grid>
+                            
+
+                      
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+
+
+
+
+                <ion-row>
+                  <ion-col>
+                    <ion-card>
+                          <ion-grid>
+                            <ion-row>
+                           <ion-col>
+                            <iconify-icon icon="vscode-icons:file-type-pdf2"></iconify-icon>
+                           </ion-col>
+
+
+                          <ion-col>
+                             <div align="center">
+                              <p>Export vos donnees form PDF</p>
+                              </div>
+                     
+
+
+               
+              <ion-button id="generate">&nbsp &nbsp &nbsp &nbsp &nbsp &nbspExporter&nbsp &nbsp &nbsp  &nbsp &nbsp</ion-button>
+                            </ion-col>
+                     
+                            
+                          </ion-row>
+                      </ion-grid>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+  </ion-grid>
+
+
+  
+            </ion-content>
+          </div>
+
+    
+      </ion-app>
+      <ion-menu-controller></ion-menu-controller>
+
+      <!-- Scripts -->
+      <script>
+        var add = document.getElementById('add');
+        add.addEventListener('click', openAddPage);
+
+        function openAddPage(){
+        location.href="./addClient.html";
+        }
+
+        var myClients = document.getElementById('my_clients');
+        myClients.addEventListener('click', openMyClientsPage);
+
+        function openMyClientsPage(){
+
+
+        
+          location.href = "./myclients.html";
+        }
+
+        var generatePDF = document.getElementById('generate');
+        generatePDF.addEventListener('click', openPDFPage);
+
+        function openPDFPage(){
+
+
+        
+          location.href = "./generatePdf.html";
+        }
+
+      
+        
+      </script>
+
+
+
+<script>
+    const handlerOutput = document.querySelector('#handlerResult');
+  const roleOutput = document.querySelector('#roleResult');
+  async function presentAlert() {
+    const alert = document.createElement('ion-alert');
+    alert.header = 'synchroniser';
+    alert.message = 'Les anciennes donnees ecrasees et remplacees par les nouvelles';
+    alert.buttons = [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => { handlerOutput.innerText = 'Data saved locally'; }
+      },
+      {
+        text: 'OK',
+        role: 'confirm',
+        handler: () => { handlerOutput.innerText = 'Data Synchronized to cloud storage'; }
+      }
+    ];
+
+    document.body.appendChild(alert);
+    await alert.present();
+  }
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword,signOut } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDEqFJs-S900pexPUDeiPc-7aRrMHhw6Ww",
+  authDomain: "e-store-a05b8.firebaseapp.com",
+  databaseURL: "https://e-store-a05b8.firebaseio.com",
+  projectId: "e-store-a05b8",
+  storageBucket: "e-store-a05b8.appspot.com",
+  messagingSenderId: "929059030724",
+  appId: "1:929059030724:web:307218980d0d2fd30b2b91",
+  measurementId: "G-46E6M68KTM"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+var logout = document.getElementById('logout');
+
+logout.addEventListener('click',logoutPage)
+
+
+function logoutPage(){
+signOut(auth).then(() => {
+   location.href="./index.html";
+;}).catch((error) => {
+  // An error happened.
+});
+
+}
+</script>
+
+
+
+
+ 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  </body>
+  </html>

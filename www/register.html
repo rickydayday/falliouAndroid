@@ -1,0 +1,162 @@
+<html>
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tailor App</title>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+        <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <style>
+      
+        ion-content{
+          font-family: 'Poppins' !important;
+          font-size: 12px !important;
+        }
+        ion-label{
+          font-size: 12px !important;
+          font-family: 'Poppins' !important;
+        }
+        p{
+  
+          font-size: 12px !important;
+        }
+      
+      </style>
+
+    <body>
+        <div class="container text-center">
+            <img src="./img/logo.png" />
+            <h2>S'inscrire</h2>
+
+            <ion-item>
+                <ion-label position="floating">Nom d'utilisateur</ion-label>
+                <ion-input id="email" type="email" placeholder=""></ion-input>
+              </ion-item>
+
+
+              <ion-item>
+                <ion-label position="floating">
+                    Mot de passe</ion-label>
+                <ion-input id="password" type="password" placeholder=""></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="floating">Confirmez le mot de passe</ion-label>
+                <ion-input id="confirm_password" type="password" placeholder=""></ion-input>
+              </ion-item>
+
+     <div class="btblock container text-center">
+              <ion-button shape="round" id="register" expand="block">S'inscrire</ion-button>
+
+              <a href="./index.html"><p>Avoir un compte ? Connectez-vous ici</p></a>
+              </div>
+        </div>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+            import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+            import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+            
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+            
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyDEqFJs-S900pexPUDeiPc-7aRrMHhw6Ww",
+              authDomain: "e-store-a05b8.firebaseapp.com",
+              databaseURL: "https://e-store-a05b8.firebaseio.com",
+              projectId: "e-store-a05b8",
+              storageBucket: "e-store-a05b8.appspot.com",
+              messagingSenderId: "929059030724",
+              appId: "1:929059030724:web:307218980d0d2fd30b2b91",
+              measurementId: "G-46E6M68KTM"
+            };
+            
+              // Initialize Firebase
+              const app = initializeApp(firebaseConfig);
+              const analytics = getAnalytics(app);
+            
+              const auth = getAuth(app);
+            
+              
+            
+            
+            
+            
+            // const db = getDatabase(app);
+            // const postListFeedbacks = ref(db, 'advertisers');
+            
+            // const newPostFeedbacks = push(postListFeedbacks);
+            
+            
+            document.getElementById('register').addEventListener('click', function(e) {
+              e.preventDefault();
+            
+       
+            
+             var email = document.getElementById('email').value;
+             var password = document.getElementById('password').value;
+          
+             var date = new Date().toString();
+            
+             createUserWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                // Signed in 
+               const user = userCredential.user;
+            
+            //    localStorage.setItem('username', email);
+            
+         
+               
+            
+            
+                swal({
+                    title:"Bienvenue à Fallou Courture!",
+                    text:"Utilisateur enregistré avec succès",
+                    icon:"success",
+                    timer:2000,
+                    button:"Ok",
+                  })
+            
+            
+                  .then(() => {
+                    
+                    window.location = './home.html';
+            })
+               
+              
+            
+            
+            
+               
+              })
+              .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                
+                 swal({
+                    title:"Error!",
+                    text:"Please Fill All Fields",
+                    icon:"info",
+                    button:"Ok",
+                  })
+            
+              });
+            
+            
+            
+            
+            });
+             
+            </script>
+    </body>
+</html>

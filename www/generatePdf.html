@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailor App</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/write-excel-file@1.x/bundle/write-excel-file.min.js"></script>
+    <style>
+   
+      ion-content{
+        font-family: 'Poppins' !important;
+        font-size: 12px !important;
+      }
+      ion-label{
+        font-size: 12px !important;
+        font-family: 'Poppins' !important;
+      }
+    
+    </style>
+  </head>
+
+  <body>
+
+    <ion-app>
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>
+                    My Clients
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <div class="table-responsive">
+            <table class="table table-sm" id="feedback_data">
+                <thead>
+                  <tr>
+                   
+                    <th scope="col">Serial No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Boubou1</th>
+                    <th scope="col">Boubou2</th>
+                    <th scope="col">Ceinture</th>
+                    <th scope="col">Epaule1</th>
+                    <th scope="col">Epaule2</th>
+                    <th scope="col">Information1</th>
+                    <th scope="col">Information2</th>
+                    <th scope="col">Information3</th>
+                    <th scope="col">Long Manche</th>
+                    <th scope="col">Manche Courte</th>
+                    <th scope="col">Long Boubou</th>
+                    <th scope="col">Longeur Boubou</th>
+                    <th scope="col">Long Pantalon</th>
+                    <th scope="col">Cuissie</th>
+                    <th scope="col">Larger</th>
+                    <th scope="col">Coup</th>
+                    <th scope="col">Bas</th>
+                    <th scope="col">Tour De Manche</th>
+                    <th scope="col">Poingent</th>
+                    <th scope="col">Fesse</th>
+                   
+                    <th scope="col">Ceinture</th>
+                    <th scope="col">Poitrine</th>
+                    <th scope="col">TourDePoitrine</th>
+                    <th scope="col">TourDeTaille</th>
+                    <th scope="col">Long Jupe</th>
+                    <th scope="col">Longeur Taille</th>
+                    <th scope="col">Booubou Trios Quart</th>
+                    <th scope="col">Note</th>
+
+
+                  </tr>
+                </thead>
+                <tbody id="output">
+                    
+
+
+                    </tbody>
+                    </table>
+               
+                
+                    </div>
+                    <div class="container text-center">
+                        <button class="btn btn-primary btn-sm" id="generate">Generate PDF</button>
+                     </div>
+                    </ion-content>
+        </ion-content>
+    </ion-app>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDEqFJs-S900pexPUDeiPc-7aRrMHhw6Ww",
+  authDomain: "e-store-a05b8.firebaseapp.com",
+  databaseURL: "https://e-store-a05b8.firebaseio.com",
+  projectId: "e-store-a05b8",
+  storageBucket: "e-store-a05b8.appspot.com",
+  messagingSenderId: "929059030724",
+  appId: "1:929059030724:web:307218980d0d2fd30b2b91",
+  measurementId: "G-46E6M68KTM"
+};
+
+
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+
+const analytics = getAnalytics(app);
+
+const db = getDatabase(app);
+
+const suggestionRef = ref(db, 'tailorclients');
+
+onValue(suggestionRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+
+    var output = document.getElementById('output');
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    
+
+    console.log(childKey);
+    console.log(childData);
+
+   
+  output.innerHTML+= `
+  
+  <tr>
+    <td>${childData.SerialNo}</td>
+    <td>${childData.Name}</td>
+  
+    <td>${childData.Phone}</td>
+    <td>${childData.Address}</td>
+    <td>${childData.Boubou1}</td>
+    <td>${childData.Boubou2}</td>
+    <td>${childData.Ceinture}</td>
+    <td>${childData.Epaule1}</td>
+    <td>${childData.Epaule2}</td>
+    <td>${childData.Information1}</td>
+    <td>${childData.Information2}</td>
+    <td>${childData.Information3}</td>
+    <td>${childData.LargerBoubou2}</td>
+    <td>${childData.LargerBoubou1}</td>
+    <td>${childData.LongueurPagne}</td>
+    <td>${childData.LongeurPantalon}</td>
+    <td>${childData.LongeurRobe}</td>
+    <td>${childData.LongueurJupe}</td>
+    <td>${childData.Manche}</td>
+    <td>${childData.TourDeBas}</td>
+    <td>${childData.TourDeBras}</td>
+    <td>${childData.TourDeBras2}</td>
+    <td>${childData.TourDeCou}</td>
+    <td>${childData.TourDeCuisse}</td>
+    <td>${childData.TourDeManche}</td>
+    <td>${childData.TourDePoignet}</td>
+    <td>${childData.TourDeTaille}></td>
+    <td>${childData.Note}></td>
+  
+
+    
+  
+  
+
+    </tr>
+  
+ 
+  
+  `;
+
+
+
+  });
+
+});
+
+    </script>
+
+
+<script>
+    function html_table_to_excel(type)
+       {
+           var data = document.getElementById('feedback_data');
+   
+           var file = XLSX.utils.table_to_book(data, {sheet: "sheet1"});
+   
+           XLSX.write(file, { bookType: type, bookSST: true, type: 'base64' });
+   
+           XLSX.writeFile(file, 'Clients.' + type);
+       }
+   
+       const export_button = document.getElementById('generate');
+   
+       export_button.addEventListener('click', () =>  {
+           html_table_to_excel('xlsx');
+
+
+           
+       swal({
+        text:'Downloaded Successfully',
+        icon:'success'
+       })
+       });
+
+
+      
+       </script>
+
+  </body>
+  </html>

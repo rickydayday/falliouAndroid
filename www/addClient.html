@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailor App</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    <style>
+       
+        ion-content{
+          font-family: 'Poppins' !important;
+          font-size: 12px !important;
+        }
+        ion-label{
+          font-size: 12px !important;
+          font-family: 'Poppins' !important;
+          font-weight: bold !important;
+        }
+
+        
+      
+      </style>
+
+    </head>
+    <body>
+        <ion-app>
+        <ion-header>
+            <ion-toolbar>
+                <ion-item id="back">
+                    <ion-icon name="arrow-back" slot="start"></ion-icon>
+                    Ajouter un client
+                  </ion-item>
+            </ion-toolbar>
+        </ion-header>
+
+
+    <ion-content fullscreen class="ion-padding">
+        <div class="image-uploads">    
+           
+           <div align="center">
+            <ion-avatar>
+               
+          
+      
+                
+                <img alt="Silhouette of a person's head" id="output-image" class="rounded-circle" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                <ion-input type="file" id="imageUpload"></ion-input>
+            </ion-avatar>
+          
+              </div>
+
+              </div>
+
+
+              <ion-card style="margin-top: 5rem !important;">
+                <ion-card-body>
+                    <ion-accordion-group>
+                        <ion-accordion value="first">
+                          <ion-item slot="header" color="light">
+                            <ion-label>Contact et Details</ion-label>
+                          </ion-item>
+                          <div class="ion-padding" slot="content">
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Serial No.
+                                </ion-label>
+                                <ion-input id="serial_no" type="text"></ion-input>
+                            </ion-item>
+
+
+                            <!-- Name -->
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Nom
+                                </ion-label>
+                                <ion-input id="name" type="text"></ion-input>
+                            </ion-item>
+
+                            <!-- Adress -->
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Adresse
+                                </ion-label>
+                                <ion-input id="address" type="text"></ion-input>
+                            </ion-item>
+
+
+                            <!-- Number /Telepehone -->
+
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Numero de Telepone
+                                </ion-label>
+                                <ion-input id="phone" type="text"></ion-input>
+                            </ion-item>
+                          </div>
+                        </ion-accordion>
+
+                        <!-- Second Accordion -->
+                        <ion-accordion value="second">
+                          <ion-item slot="header" color="light">
+                            <ion-label>Commande Details</ion-label>
+                          </ion-item>
+                          <div class="ion-padding" slot="content">
+                            <!-- Information 1 -->
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Information 1
+                                </ion-label>
+                                <ion-input id="information_1" type="text"></ion-input>
+                            </ion-item>
+
+
+
+                            <!-- information 2 -->
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Information 2
+                                </ion-label>
+                                <ion-input id="information_2" type="text"></ion-input>
+                            </ion-item>
+
+
+
+                            <!-- information 3 -->
+
+
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Information 3
+                                </ion-label>
+                                <ion-input id="information_3" type="text"></ion-input>
+                            </ion-item>
+                          </div>
+                        </ion-accordion>
+
+
+
+                        <!-- accordoin 3 -->
+                        <ion-accordion value="third">
+                          <ion-item slot="header" color="light">
+                            <ion-label>Prise de Mesure</ion-label>
+                          </ion-item>
+                          <div class="ion-padding" slot="content">
+                               <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 Epaule
+                                            </ion-label>
+                                            <ion-input id="epaule_1" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 Epaule
+                                            </ion-label>
+                                            <ion-input id="epaule_2" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                Long Manche
+                                            </ion-label>
+                                            <ion-input id="manche" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                Manche Courte
+                                            </ion-label>
+                                            <ion-input id="ceinture" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                      
+
+
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                Long boubou
+                                            </ion-label>
+                                            <ion-input id="boubou_1" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                Long boubou 
+                                            </ion-label>
+                                            <ion-input id="boubou_2" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                                
+                                <ion-row>
+                                  <ion-col>
+                                      <ion-item>
+                                          <ion-label position="floating">
+                                             Long pantalon
+                                          </ion-label>
+                                          <ion-input id="longueur_jupe" type="text"></ion-input>
+                                      </ion-item>
+                                  </ion-col>
+
+
+                                  <ion-col>
+                                      <ion-item>
+                                          <ion-label position="floating">
+                                           Cuisse
+                                          </ion-label>
+                                          <ion-input id="longeur_pagne" type="text"></ion-input>
+                                      </ion-item>
+                                  </ion-col>
+                              </ion-row>
+
+
+                              
+                              <ion-row>
+                                <ion-col>
+                                    <ion-item>
+                                        <ion-label position="floating">
+                                             Largeur
+                                        </ion-label>
+                                        <ion-input id="larger_boubou_2" type="text"></ion-input>
+                                    </ion-item>
+                                </ion-col>
+
+
+                                <ion-col>
+                                    <ion-item>
+                                        <ion-label position="floating">
+                                             Coup
+                                        </ion-label>
+                                        <ion-input id="largeur_boubou1" type="text"></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+
+                            
+                            <ion-row>
+                              <ion-col>
+                                  <ion-item>
+                                      <ion-label position="floating">
+                                           Bas
+                                      </ion-label>
+                                      <ion-input id="longeur_robe" type="text"></ion-input>
+                                  </ion-item>
+                              </ion-col>
+
+
+                              <ion-col>
+                                  <ion-item>
+                                      <ion-label position="floating">
+                                           Tour De Manche
+                                      </ion-label>
+                                      <ion-input id="longeur_pantalon" type="text"></ion-input>
+                                  </ion-item>
+                              </ion-col>
+                          </ion-row>
+
+
+                          
+                          <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">
+                                        Poinget
+                                    </ion-label>
+                                    <ion-input id="tour_de_cou" type="text"></ion-input>
+                                </ion-item>
+                            </ion-col>
+
+
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">
+                                         Fesse
+                                    </ion-label>
+                                    <ion-input id="tour_de_cuisse" type="text"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+
+
+                        
+                        <ion-row>
+                          <ion-col>
+                              <ion-item>
+                                  <ion-label position="floating">
+                                       Ceinture
+                                  </ion-label>
+                                  <ion-input id="tour_de_bras1" type="text"></ion-input>
+                              </ion-item>
+                          </ion-col>
+
+
+                          <ion-col>
+                              <ion-item>
+                                  <ion-label position="floating">
+                                       Poitrine
+                                  </ion-label>
+                                  <ion-input id="tour_de_bras2" type="text"></ion-input>
+                              </ion-item>
+                          </ion-col>
+                      </ion-row>
+
+
+                      
+                      <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">
+                                     Tour de taille
+                                </ion-label>
+                                <ion-input id="tour_de_fesse" type="text"></ion-input>
+                            </ion-item>
+                        </ion-col>
+
+
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">
+                                     Long jupe
+                                </ion-label>
+                                <ion-input id="tour_de_poitrine" type="text"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+
+
+                    
+                    <ion-row>
+                      <ion-col>
+                          <ion-item>
+                              <ion-label position="floating">
+                                   Longeur taille
+                              </ion-label>
+                              <ion-input id="tour_de_taille" type="text"></ion-input>
+                          </ion-item>
+                      </ion-col>
+
+
+                      <ion-col>
+                          <ion-item>
+                              <ion-label position="floating">
+                                   Boubou Trois Quart
+                              </ion-label>
+                              <ion-input id="tour_de_manche" type="text"></ion-input>
+                          </ion-item>
+                      </ion-col>
+                  </ion-row>
+
+
+
+
+                  
+             
+                               </ion-grid>
+                          </div>
+                        </ion-accordion>
+
+
+
+
+                          <ion-accordion value="fifth">
+                            <ion-item slot="header" color="light">
+                              <ion-label>Ajouter une note</ion-label>
+                            </ion-item>
+                            <div class="ion-padding" slot="content">
+                                <ion-textarea id="note"
+                                placeholder="Enter text, leave the textarea, come back, and type to clear"
+                                clear-on-edit="true"
+                              ></ion-textarea>
+                            </div>
+                            <ion-input type="text" name="" id="namebox"></ion-input>
+                            <label id="extLab"></label><label id="proglab"></label>
+                          </ion-accordion>
+                      </ion-accordion-group>
+
+
+               
+                       
+                      
+
+                      
+                </ion-card-body>
+              </ion-card>
+              <div align="center">
+               <ion-button id="submit" size="small">Sauvegarder</ion-button>
+              </div>
+        </ion-content>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+import { getDatabase, ref, set, push, update} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+import { getStorage, ref as sRef, uploadBytesResumable,getDownloadURL} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
+
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDEqFJs-S900pexPUDeiPc-7aRrMHhw6Ww",
+  authDomain: "e-store-a05b8.firebaseapp.com",
+  databaseURL: "https://e-store-a05b8.firebaseio.com",
+  projectId: "e-store-a05b8",
+  storageBucket: "e-store-a05b8.appspot.com",
+  messagingSenderId: "929059030724",
+  appId: "1:929059030724:web:307218980d0d2fd30b2b91",
+  measurementId: "G-46E6M68KTM"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+const storage = getStorage(app);
+var files= [];
+
+var reader = new FileReader();
+var imageUpload = document.getElementById('imageUpload');
+var extLab = document.getElementById('extLab');
+var namebox = document.getElementById('namebox');
+var proglab =document.getElementById('proglab');
+
+
+
+var submit = document.getElementById('submit');
+var storageRef = sRef(storage, 'Images');
+const clientsRef = ref(db, 'tailorclients');
+const newClientsRef = push(clientsRef);
+
+imageUpload.onchange = e =>{
+
+  files = e.target.files;
+
+  var extension = GetFileExt(files[0]);
+  var name = GetFileName(files[0]);
+  var output = document.getElementById('output-image');
+
+  output.src = URL.createObjectURL(event.target.files[0]);
+
+  output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+
+
+  namebox.value = name;
+  extLab.innerHTML= extension;
+
+  reader.readAsDataURL(files[0]);
+
+
+}
+//   if (e.target.files) {
+//                 let imageVal = e.target.files[0];
+//                 var reader = new FileReader();
+//                 reader.onload = function (e) {
+//                     var img = document.createElement("img");
+//                     img.onload = function (event) {
+//                         // This line is dynamically creating a canvas element
+//                         var canvas = document.createElement("canvas");
+
+
+                      
+//                         var ctx = canvas.getContext("2d");
+
+
+//                         //This line shows the actual resizing of image
+//                         ctx.drawImage(img, 0, 0, 400, 350);
+
+
+//                         //This line is used to display the resized image in the body
+//                         var url = canvas.toDataURL(imageVal.type);
+//                         document.getElementById("img-content").src = url;
+//                     }
+//                     img.src = e.target.result;
+//                 }
+//                 reader.readAsDataURL(imageVal);
+//             }
+
+
+
+ 
+
+
+
+function GetFileExt(file){
+    var temp= file.name.split('.');
+    var ext = temp.slice((temp.length-1),(temp.length));
+    return '.' +ext[0];
+
+}
+
+function GetFileName(file){
+    var temp = file.name.split('.');
+    var fname = temp.slice(0,-1).join('.');
+    return fname;
+}
+
+
+//upload photo
+
+
+function UploadProcess(e){
+e.preventDefault();
+    var serial_no = document.getElementById('serial_no').value;
+    var name = document.getElementById('name').value;
+    var address = document.getElementById('address').value;
+    var phone = document.getElementById('phone').value;
+    var information_1 = document.getElementById('information_1').value;
+    var information_2 = document.getElementById('information_2').value;
+    var information_3 = document.getElementById('information_3').value;
+    var epaule_1 = document.getElementById('epaule_1').value;
+    var epaule_2 = document.getElementById('epaule_2').value;
+    var manche = document.getElementById('manche').value;
+    var ceinture= document.getElementById('ceinture').value;
+    var boubou1 = document.getElementById('boubou_1').value;
+    var boubou2 = document.getElementById('boubou_2').value;
+    var longueur_jupe = document.getElementById('longueur_jupe').value;
+    var longeur_pagne = document.getElementById('longeur_pagne').value;
+    var larger_boubou_2 = document.getElementById('larger_boubou_2').value;
+    var largeur_boubou1 = document.getElementById('largeur_boubou1').value;
+    var longeur_robe = document.getElementById('longeur_robe').value;
+    var longeur_pantalon = document.getElementById('longeur_pantalon').value;
+    var tour_de_cou = document.getElementById('tour_de_cou').value;
+    var tour_de_cuisse = document.getElementById('tour_de_cuisse').value;
+    var tour_de_bras1 = document.getElementById('tour_de_bras1').value;
+    var tour_de_bras2 = document.getElementById('tour_de_bras2').value;
+    var tour_de_fesse = document.getElementById('tour_de_fesse').value;
+    var tour_de_poitrine = document.getElementById('tour_de_poitrine').value;
+    var tour_de_taille = document.getElementById('tour_de_taille').value;
+
+    var tour_de_manche = document.getElementById('tour_de_manche').value;
+  
+
+    var note = document.getElementById('note').value;
+    var d = new Date().getDate();
+
+    set(newClientsRef,{
+
+        SerialNo: serial_no,
+        Name: name,
+        Address: address,
+        Phone: phone,
+        Information1 : information_1,
+        Information2: information_2,
+        Epaule1:epaule_1,
+        Epaule2:epaule_2,
+        Information3: information_3,
+        Manche:manche,
+        Ceinture: ceinture,
+        Boubou1 : boubou1,
+        Boubou2: boubou2,
+        LongueurJupe:longueur_jupe,
+        LongeurPagne:longeur_pagne,
+        LargerBoubou:larger_boubou_2,
+        LargerBoubou1:largeur_boubou1,
+        LongeurRobe: longeur_robe,
+        LongeurPantalon: longeur_pantalon,
+        TourDeCou: tour_de_cou,
+        TourDeCuisse: tour_de_cuisse,
+        TourDeBras:tour_de_bras1,
+        TourDeBras2:tour_de_bras2,
+        TourDeFesse:tour_de_fesse,
+        TourDePoitrine:tour_de_poitrine,
+        TourDeTaille: tour_de_taille,
+        TourDeManche: tour_de_manche,
+ 
+       
+        Note:note,
+        Date: d
+
+    })
+
+
+
+    swal({
+            title: "Good job!",
+            text: "Data Has Saved Successfully!",
+            icon: "success",
+             button: "okay!",
+     });
+
+
+    console.log("data saved");
+
+
+    var ImgToUpload = files[0];
+    var Image = namebox.value + extLab.innerHTML;
+
+    const metaData = {
+
+        contentType:ImgToUpload.type
+      }
+
+    const UploadTask = uploadBytesResumable(storageRef,ImgToUpload, metaData)
+
+     UploadTask.on('state-changed',(snapshot)=>{
+        var progess = (snapshot.bytesTransferred / snapshot.total * 100);
+        proglab.innerHTML = "Upload" + progess + "%";
+    },
+
+    (error)=>{
+        alert("error");
+    },
+
+    () => {
+        getDownloadURL(UploadTask.snapshot.ref).then((downloadURL)=>{
+             SaveToRealTimeDatabase(downloadURL);
+        });
+
+    });
+
+
+
+
+}
+
+
+   function SaveToRealTimeDatabase(URL){
+    var name = namebox.value;
+    var ext = extLab.innerHTML;
+
+    set(ref(db, "imagephotos/" +name),{
+
+        imageName :(name+ext),
+        ImgUrl: URL,
+        
+    });
+}
+
+
+function GetUrlFromRealtimeDB(){
+    var name = namebox.value;
+    var dbRef = ref(db);
+
+    get(child(dbref,'imagephotos/' +namebox)).then((snapshot)=>{
+        if(snapshot.exists()){
+            myImg.src= snapshot.val().ImgUrl;
+        }
+    })
+}
+
+submit.onclick= UploadProcess;
+
+
+</script>
+<script>
+  var backbutton= document.getElementById('back');
+  backbutton.addEventListener('click', goBack);
+
+  function goBack(){
+    location.href = './home.html';
+  }
+
+
+
+</script>
+
+
+   </ion-app>
+    </body>
+    </html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailor App</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+   
+      ion-content{
+        font-family: 'Poppins' !important;
+        font-size: 12px !important;
+      }
+      ion-label{
+        font-size: 12px !important;
+        font-family: 'Poppins' !important;
+      }
+      ion-icon{
+        font-size: 20px !important;
+      }
+
+ion-card-title{
+
+    font-family:'Poppins';
+}
+.left{
+  margin-left: 0 !important;
+}
+
+ion-card-title{
+  font-size: 12px !important;
+  font-weight: bold;
+}
+
+ion-card-subtitle{
+  font-size:10px !important;
+}
+
+p{
+  font-weight: bold;
+}
+
+ion-accordion{
+  height: 0% !important;
+}
+
+      
+    
+    </style>
+  </head>
+
+  <body>
+
+    <ion-app>
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>
+                  mes clients
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+          <ion-searchbar animated="true" placeholder="Rechercher"></ion-searchbar>
+          <ion-list id="output">
+
+          </ion-list>
+   
+                    </ion-content>
+        </ion-content>
+    </ion-app>
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDEqFJs-S900pexPUDeiPc-7aRrMHhw6Ww",
+  authDomain: "e-store-a05b8.firebaseapp.com",
+  databaseURL: "https://e-store-a05b8.firebaseio.com",
+  projectId: "e-store-a05b8",
+  storageBucket: "e-store-a05b8.appspot.com",
+  messagingSenderId: "929059030724",
+  appId: "1:929059030724:web:307218980d0d2fd30b2b91",
+  measurementId: "G-46E6M68KTM"
+};
+
+
+
+
+
+
+
+
+
+
+
+const app = initializeApp(firebaseConfig);
+
+const analytics = getAnalytics(app);
+
+const db = getDatabase(app);
+
+const suggestionRef = ref(db, 'tailorclients');
+const imageReference = ref(db, 'imagephotos');
+
+onValue(suggestionRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+
+    var output = document.getElementById('output');
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    
+
+    console.log(childKey);
+    console.log(childData);
+
+
+output.innerHTML+= `
+<div align="center">
+<ion-card>
+<ion-card-header>
+  <ion-grid><ion-row>
+    <ion-col id="output2" class="left">
+
+<ion-card-title>${childData.Name}</ion-card-title>
+</ion-col>
+<ion-col>
+
+  <div align="center"><i class="fa fa-hashtag"></i>
+        <ion-card><ion-card-title>No:</ion-card-title>
+
+          <p>${childData.SerialNo}</p></ion-card>
+      </div>
+   
+ 
+
+  </ion-col>
+
+  <ion-col>
+    <div align="center"><ion-icon name="trash-outline"></ion-icon>
+        <ion-card><ion-card-title>Date</ion-card-title>
+
+          <p>${childData.Date}</p></ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+</ion-card-header>
+
+  <ion-card-body>
+    <ion-accordion-group>
+  <ion-accordion value="first">
+    <ion-item slot="header" color="primary">
+      <ion-label>View Details</ion-label>
+    </ion-item>
+    <div class="ion-padding" slot="content">
+      <ion-accordion-group>
+                        <ion-accordion value="first">
+                          <ion-item slot="header" color="light">
+                            <ion-label>Contact et Details</ion-label>
+                          </ion-item>
+                          <div class="ion-padding" slot="content">
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Serial No.
+                                </ion-label>
+                                <ion-input id="serial_no" value="${childData.SerialNo}" type="text"></ion-input>
+                            </ion-item>
+
+
+                            <!-- Name -->
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Nom
+                                </ion-label>
+                                <ion-input id="name" value="${childData.Name}" type="text"></ion-input>
+                            </ion-item>
+
+                            <!-- Adress -->
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Adresse
+                                </ion-label>
+                                <ion-input id="address" value="${childData.Address}" type="text"></ion-input>
+                            </ion-item>
+
+
+                            <!-- Number /Telepehone -->
+
+
+                            <ion-item>
+                                <ion-label position="floating">
+                                    Numero de Telepone
+                                </ion-label>
+                                <ion-input id="phone" value="${childData.Phone}" type="text"></ion-input>
+                            </ion-item>
+                          </div>
+                        </ion-accordion>
+
+          
+
+
+
+                        <!-- accordoin 3 -->
+                        <ion-accordion value="third">
+                          <ion-item slot="header" color="light">
+                            <ion-label>Prise de Mesure</ion-label>
+                          </ion-item>
+                          <div class="ion-padding" slot="content">
+                               <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 Epaule 1
+                                            </ion-label>
+                                            <ion-input id="epaule_1" value="${childData.Epaule1}" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 Epaule 2
+                                            </ion-label>
+                                            <ion-input id="epaule_2" value="${childData.Epaule2}" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 Manche
+                                            </ion-label>
+                                            <ion-input id="manche" value="${childData.Manche}" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 Ceinture
+                                            </ion-label>
+                                            <ion-input id="ceinture" value="${childData.Ceinture}" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                      
+
+
+
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 boubou 1
+                                            </ion-label>
+                                            <ion-input id="boubou_1" value="${childData.Boubou1}" type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+
+
+                                    <ion-col>
+                                        <ion-item>
+                                            <ion-label position="floating">
+                                                 boubou 2
+                                            </ion-label>
+                                            <ion-input id="boubou_2" value="${childData.Boubou2}"type="text"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                </ion-row>
+
+
+                                
+                                <ion-row>
+                                  <ion-col>
+                                      <ion-item>
+                                          <ion-label position="floating">
+                                               longeur jupe
+                                          </ion-label>
+                                          <ion-input id="longueur_jupe" value="${childData.LongueurJupe}" type="text"></ion-input>
+                                      </ion-item>
+                                  </ion-col>
+
+
+                                  <ion-col>
+                                      <ion-item>
+                                          <ion-label position="floating">
+                                               longeur pagne
+                                          </ion-label>
+                                          <ion-input id="longeur_pagne" value="${childData.LongeurPagne}" type="text"></ion-input>
+                                      </ion-item>
+                                  </ion-col>
+                              </ion-row>
+
+
+                              
+                              <ion-row>
+                                <ion-col>
+                                    <ion-item>
+                                        <ion-label position="floating">
+                                             larger boubou2
+                                        </ion-label>
+                                        <ion-input id="larger_boubou_2" value="${childData.LargerBoubou}" type="text"></ion-input>
+                                    </ion-item>
+                                </ion-col>
+
+
+                                <ion-col>
+                                    <ion-item>
+                                        <ion-label position="floating">
+                                             largeur boubou1
+                                        </ion-label>
+                                        <ion-input id="largeur_boubou1" value="${childData.LargerBoubou1}" type="text"></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+
+                            
+                            <ion-row>
+                              <ion-col>
+                                  <ion-item>
+                                      <ion-label position="floating">
+                                           longeur robe
+                                      </ion-label>
+                                      <ion-input id="longeur_robe" value="${childData.LongeurRobe}"  type="text"></ion-input>
+                                  </ion-item>
+                              </ion-col>
+
+
+                              <ion-col>
+                                  <ion-item>
+                                      <ion-label position="floating">
+                                           longeur pantalon
+                                      </ion-label>
+                                      <ion-input id="longeur_pantalon" value="${childData.LongeurPantalon}" type="text"></ion-input>
+                                  </ion-item>
+                              </ion-col>
+                          </ion-row>
+
+
+                          
+                          <ion-row>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">
+                                          Tour de cou
+                                    </ion-label>
+                                    <ion-input id="tour_de_cou" value="${childData.TourDeCou}" type="text"></ion-input>
+                                </ion-item>
+                            </ion-col>
+
+
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label position="floating">
+                                         Tour de cuisse
+                                    </ion-label>
+                                    <ion-input id="tour_de_cuisse" value="${childData.TourDeCuisse}" type="text"></ion-input>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+
+
+                        
+                        <ion-row>
+                          <ion-col>
+                              <ion-item>
+                                  <ion-label position="floating">
+                                       Tour de bras 1
+                                  </ion-label>
+                                  <ion-input id="tour_de_bras1" value="${childData.TourDeBras}" type="text"></ion-input>
+                              </ion-item>
+                          </ion-col>
+
+
+                          <ion-col>
+                              <ion-item>
+                                  <ion-label position="floating">
+                                       Tour de bras 2
+                                  </ion-label>
+                                  <ion-input id="tour_de_bras2" value="${childData.TourDeBras2}" type="text"></ion-input>
+                              </ion-item>
+                          </ion-col>
+                      </ion-row>
+
+
+                      
+                      <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">
+                                     Tour de fesse
+                                </ion-label>
+                                <ion-input id="tour_de_fesse" value="${childData.TourDeFesse}" type="text"></ion-input>
+                            </ion-item>
+                        </ion-col>
+
+
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">
+                                     Tour de poitrine
+                                </ion-label>
+                                <ion-input id="tour_de_poitrine" value="${childData.TourDePoitrine}" type="text"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+
+
+                    
+                    <ion-row>
+                      <ion-col>
+                          <ion-item>
+                              <ion-label position="floating">
+                                   Tour de taille
+                              </ion-label>
+                              <ion-input id="tour_de_taille" value="${childData.TourDeTaille}" type="text"></ion-input>
+                          </ion-item>
+                      </ion-col>
+
+
+                      <ion-col>
+                          <ion-item>
+                              <ion-label position="floating">
+                                   Tour de manche
+                              </ion-label>
+                              <ion-input id="tour_de_manche" value="${childData.TourDeManche}" type="text"></ion-input>
+                          </ion-item>
+                      </ion-col>
+                  </ion-row>
+
+
+
+
+                  
+                  <ion-row>
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating">
+                                 Tour de bas
+                            </ion-label>
+                            <ion-input id="tour_de_bas" value="${childData.TourDeBas}" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+
+
+                    <ion-col>
+                        <ion-item>
+                            <ion-label position="floating">
+                                 Tour de poignet
+                            </ion-label>
+                            <ion-input id="tour_de_poignet" value="${childData.TourDePoignet}" type="text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+                               </ion-grid>
+                          </div>
+                        </ion-accordion>
+
+
+      
+
+
+                  <ion-accordion value="fifth">
+                            <ion-item slot="header" color="light">
+                              <ion-label>Ajouter une note</ion-label>
+                            </ion-item>
+                            <div class="ion-padding" slot="content">
+                                <ion-textarea id="note"
+                                placeholder="${childData.Note}"
+                                clear-on-edit="true"
+                              ></ion-textarea>
+                            </div>
+                          </ion-accordion>
+                      </ion-accordion-group>
+    </div>
+  </ion-accordion>
+  </ion-accordion-group>
+    
+    </ion-card-body>
+
+  </ion-card>
+
+  </div>
+
+
+`;
+   
+
+
+
+
+
+
+  });
+
+
+
+});
+
+
+
+onValue(imageReference, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+
+    var output2 = document.getElementById('output2');
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    
+
+    console.log(childKey);
+    console.log(childData);
+
+   
+  output2.innerHTML+= `
+  
+
+  <ion-avatar>
+  <img alt="Silhouette of a person's head" src="${childData.ImgUrl}" />
+</ion-avatar>
+
+  
+ 
+  
+  `;
+  
+
+
+  });
+
+});
+
+    </script>
+
+  </body>
+  </html>

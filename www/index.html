@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailor App</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  
+
+    
+    <style>
+      :root {
+        --ion-safe-area-top: 20px;
+        --ion-safe-area-bottom: 22px;
+      }
+      ion-content{
+        font-family: 'Poppins' !important;
+        font-size: 12px !important;
+      }
+      ion-label{
+        font-size: 12px !important;
+        font-family: 'Poppins' !important;
+      }
+      p{
+
+        font-size: 12px !important;
+      }
+    
+    </style>
+  </head>
+  <body>
+    <ion-app>
+      <ion-content fullscreen class="ion-padding" scroll-y="false">
+     <div class="container text-center">
+          
+            <img src="./img/logo.png" />
+            <h2>connexion</h2>
+
+            <ion-item>
+                <ion-label position="floating">Nom d'utilisateur</ion-label>
+                <ion-input id="email" type="email" placeholder=""></ion-input>
+              </ion-item>
+
+
+              <ion-item>
+                <ion-label position="floating">Mot de passe</ion-label>
+                <ion-input id="password" type="password" placeholder=""></ion-input>
+              </ion-item>
+
+     <div class="btblock container text-center">
+              <ion-button shape="round" id="login" expand="block">connexion</ion-button>
+
+              <a href="./register.html"><p>Vous n'avez pas de compte ? Inscrivez-vous ici</p></a>
+              </div>
+      </div>
+      </ion-content>
+    </ion-app>
+
+    <style>
+      ion-slides {
+        height: 100%;
+      }
+
+      .swiper-slide {
+        display: block;
+      }
+
+      .swiper-slide h2 {
+        margin-top: 2.8rem;
+      }
+
+      .swiper-slide img {
+        max-height: 50%;
+        max-width: 80%;
+        margin: 60px 0 40px;
+        pointer-events: none;
+      }
+
+      b {
+        font-weight: 500;
+      }
+
+      p {
+        padding: 0 40px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ion-color-step-600, #60646b);
+      }
+
+      p b {
+        color: var(--ion-text-color, #000000);
+      }
+    </style>
+
+    <script type="module" src="js/server.js"></script>
+  </body>
+</html>
